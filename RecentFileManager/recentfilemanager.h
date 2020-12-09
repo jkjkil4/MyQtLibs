@@ -6,13 +6,18 @@
 #include <QDir>
 #include <QTextStream>
 
+#include "header.h"
+
 class RecentFileManager
 {
 public:
+    RecentFileManager() = default;
     explicit RecentFileManager(const QString &filePath);
 
     QStringList loadAll(int limitCount = -1, bool *ok = nullptr);
     void append(const QString &path, bool *ok = nullptr);
+
+    VAR_FUNC(FilePath, filePath, QString, , )
 
 private:
     QString filePath;
