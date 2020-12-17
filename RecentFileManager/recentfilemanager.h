@@ -6,7 +6,7 @@
 #include <QDir>
 #include <QTextStream>
 
-#include "header.h"
+#include "mlibheader.h"
 
 class RecentFileManager
 {
