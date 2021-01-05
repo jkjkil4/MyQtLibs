@@ -3,8 +3,11 @@ INCLUDEPATH += \
     $$PWD
 
 HEADERS += \
-    $$PWD/RecentFileManager/recentfilemanager.h \
-    $$PWD/mlibheader.h
+    $$PWD/Lib/fontfamily.h \
+    $$PWD/Lib/header.h \
+    $$PWD/Lib/math.h \
+    $$PWD/Lib/paint.h \
+    $$PWD/Lib/RecentFileManager/recentfilemanager.h
 
 SOURCES += \
-    $$PWD/RecentFileManager/recentfilemanager.cpp
+    $$PWD/Lib/RecentFileManager/recentfilemanager.cpp
