@@ -9,4 +9,22 @@
 #define VAR_SET_FUNC(Func, var, Type, Const, Quote) void set##Func(Const Type Quote __##var##__) { var = __##var##__; }
 #define VAR_FUNC(Func, var, Type, Const, Quote) VAR_GET_FUNC(Func, var, Type) VAR_SET_FUNC(Func, var, Type, Const, Quote)
 
+namespace j {
+    template<typename T>
+    inline void SafeDelete(T *&p) {
+        if(p) {
+            delete p;
+            p = nullptr;
+        }
+    }
+
+    template<typename T>
+    inline void SafeDeleteArray(T *&p) {
+        if(p) {
+            delete[] p;
+            p = nullptr;
+        }
+    }
+}
+
 #endif // HEADER_H
