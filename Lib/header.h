@@ -1,7 +1,7 @@
 #ifndef HEADER_H
 #define HEADER_H
 
-#define repeat(i, n) for(int i = 0; i < n; i++)
+#define repeat(Type, i, n) for(Type i = 0; i < n; i++)
 #define SET_PTR(ptr, v) if(ptr) *ptr = v
 #define APP_DIR QCoreApplication::applicationDirPath()
 

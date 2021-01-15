@@ -58,11 +58,11 @@ QStringList RecentFileManager::loadAll(int limitCount, bool *ok) {
 void RecentFileManager::append(const QString& path, bool *ok) {
     QFile file(filePath);   //文件
     if(!file.open(QIODevice::Append | QIODevice::Text)) {   //以追加的方式打开文件，如果不能打开，则return
-        if(ok) *ok = false;
+        SET_PTR(ok, false);
         return;
     }
     QTextStream(&file) << "\n" << path; //输出
     file.close();   //关闭文件
 
-    if(ok) *ok = true;
+    SET_PTR(ok, true);
 }

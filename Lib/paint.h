@@ -16,11 +16,11 @@ namespace j {
         t->setFont(font);
     }
 
-    inline void DrawText(QPainter &p, int x, int y, int flags, QString str,
+    inline void DrawText(QPainter *p, int x, int y, int flags, QString str,
                           int xLimit = -1, int yLimit = -1, QRect *pRect = nullptr)
     {
         //字体
-        QFontMetrics fm(p.font());
+        QFontMetrics fm(p->font());
         QRect rec = fm.boundingRect(QRect(0, 0, INT_MAX, INT_MAX), Qt::TextFlag(), str);
         //大小
         int w = rec.width(), h = rec.height();
@@ -43,9 +43,9 @@ namespace j {
         QRect r = QRect(x, y, w, h);
         SET_PTR(pRect, r);
         //绘制
-        p.drawText(r, flags, str);
+        p->drawText(r, flags, str);
     }
-    inline void DrawText(QPainter &p, QPoint pos, int flags, QString str,
+    inline void DrawText(QPainter *p, QPoint pos, int flags, QString str,
                           int xLimit = -1, int yLimit = -1, QRect *pRect = nullptr)
     {
         DrawText(p, pos.x(), pos.y(), flags, str, xLimit, yLimit, pRect);
