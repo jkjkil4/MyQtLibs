@@ -21,7 +21,7 @@ public:
     VAR_FUNC(Spacing, spacing, int, , )
 
 private:
-    int text1PointSize = 10;
+    int text1PointSize = 11;
     int text2PointSize = 7;
 
     QColor text1Color = QColor(70, 40, 70);

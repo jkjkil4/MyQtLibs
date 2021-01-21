@@ -6,6 +6,7 @@ HEADERS += \
     $$PWD/Lib/Item/chequereddelegate.h \
     $$PWD/Lib/Item/dtextdelegate.h \
     $$PWD/Lib/Item/dtextmodel.h \
+    $$PWD/Lib/PlainButton/plainbutton.h \
     $$PWD/Lib/fontfamily.h \
     $$PWD/Lib/header.h \
     $$PWD/Lib/math.h \
@@ -16,4 +17,5 @@ SOURCES += \
     $$PWD/Lib/Item/chequereddelegate.cpp \
     $$PWD/Lib/Item/dtextdelegate.cpp \
     $$PWD/Lib/Item/dtextmodel.cpp \
+    $$PWD/Lib/PlainButton/plainbutton.cpp \
     $$PWD/Lib/RecentFileManager/recentfilemanager.cpp
