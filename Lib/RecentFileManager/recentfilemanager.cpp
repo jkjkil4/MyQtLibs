@@ -35,22 +35,20 @@ QStringList RecentFileManager::loadAll(int limitCount, bool *ok) {
         QFile writeFile(filePath);  //文件
         int ignoreCount = lRecentFiles.size() - limitCount; //要忽略的数量
 
-        if(!writeFile.open(QIODevice::WriteOnly | QIODevice::Text)) //以只写方式打开文件，若不能，则跳转至End
-            goto End;
+        if(writeFile.open(QIODevice::WriteOnly | QIODevice::Text)) { //以只写方式打开文件，若不能，则跳转至End
+            QTextStream out(&writeFile); //输出流
+            //从第limitCount个向前遍历
+            for(auto iter = lRecentFiles.rbegin() + ignoreCount; iter < lRecentFiles.rend(); ++iter) {
+                QString path = *iter;
+                out << "\n" << path;
+            }
+            writeFile.close();  //关闭文件
 
-        QTextStream out(&writeFile); //输出流
-        //从第limitCount个向前遍历
-        for(auto iter = lRecentFiles.rbegin() + ignoreCount; iter < lRecentFiles.rend(); ++iter) {
-            QString path = *iter;
-            out << "\n" << path;
+            for(int i = 0; i < ignoreCount; i++)    //移除过多的路径
+                lRecentFiles.removeLast();
         }
-        writeFile.close();  //关闭文件
-
-        for(int i = 0; i < ignoreCount; i++)    //移除过多的路径
-            lRecentFiles.removeLast();
     }
 
-    End:
     if(ok) *ok = true;
     return lRecentFiles;
 }

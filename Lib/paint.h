@@ -29,16 +29,16 @@ namespace j {
         if(yLimit != -1 && h > yLimit)
             h = yLimit;
         //判断
-        x -= w/2;
-        y -= h/2;
+        x -= w / 2;
+        y -= h / 2;
         if(flags & Qt::AlignRight)
-            x -= w/2;
+            x -= w / 2;
         if(flags & Qt::AlignLeft)
-            x += w/2;
+            x += w / 2;
         if(flags & Qt::AlignBottom)
-            y -= h/2;
+            y -= h / 2;
         if(flags & Qt::AlignTop)
-            y += h/2;
+            y += h / 2;
         //字符串所占的像素宽度,高度
         QRect r = QRect(x, y, w, h);
         SET_PTR(pRect, r);
