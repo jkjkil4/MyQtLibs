@@ -15,6 +15,11 @@ namespace j {
         font.setFamily(family);
         t->setFont(font);
     }
+    template<typename T>inline void SetBold(T *t, bool bold) {
+        QFont font = t->font();
+        font.setBold(bold);
+        t->setFont(font);
+    }
 
     inline void DrawText(QPainter *p, int x, int y, int flags, QString str,
                           int xLimit = -1, int yLimit = -1, QRect *pRect = nullptr)

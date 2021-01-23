@@ -25,7 +25,7 @@ private:
     QColor borderColor = QColor(120, 120, 120);
     int borderSize = 1;
 
-    QColor normalColor = QColor(250, 250, 250);
+    QColor normalColor = QColor(246, 246, 246);
     QColor mouseOverColor = QColor(253, 253, 253);
     QColor mouseDownColor = QColor(239, 239, 239);
 };
