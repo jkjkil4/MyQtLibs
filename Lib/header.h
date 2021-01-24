@@ -11,6 +11,9 @@
 #define VAR_SET_FUNC(Func, var, Type, Const, Quote) void set##Func(Const Type Quote __##var##__) { var = __##var##__; }
 #define VAR_FUNC(Func, var, Type, Const, Quote) VAR_GET_FUNC(Func, var, Type) VAR_SET_FUNC(Func, var, Type, Const, Quote)
 
+#define VAR_SET_FUNC_USER(Func, var, Type, User, Const, Quote) void set##Func(Const Type Quote __##var##__) { var = __##var##__; User; }
+#define VAR_FUNC_USER(Func, var, Type, User, Const, Quote) VAR_GET_FUNC(Func, var, Type) VAR_SET_FUNC_USER(Func, var, Type, User, Const, Quote)
+
 namespace j {
     template<typename T>
     inline void SafeDelete(T *&p) {

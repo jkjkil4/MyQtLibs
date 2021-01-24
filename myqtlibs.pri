@@ -11,11 +11,10 @@ HEADERS += \
     $$PWD/Lib/header.h \
     $$PWD/Lib/math.h \
     $$PWD/Lib/paint.h \
-    $$PWD/Lib/RecentFileManager/recentfilemanager.h
+    $$PWD/Lib/recentfilemanager.h
 
 SOURCES += \
     $$PWD/Lib/Item/chequereddelegate.cpp \
     $$PWD/Lib/Item/dtextdelegate.cpp \
     $$PWD/Lib/Item/dtextmodel.cpp \
-    $$PWD/Lib/PlainButton/plainbutton.cpp \
-    $$PWD/Lib/RecentFileManager/recentfilemanager.cpp
+    $$PWD/Lib/PlainButton/plainbutton.cpp

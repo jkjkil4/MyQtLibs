@@ -14,12 +14,12 @@ public:
     explicit PlainButton(QWidget *parent = nullptr) : QAbstractButton(parent) {}
     explicit PlainButton(const QString& text, QWidget *parent = nullptr) : QAbstractButton(parent) { setText(text); }
 
-    VAR_FUNC(BorderColor, borderColor, QColor, , )
-    VAR_FUNC(BorderSize, borderSize, int, , )
+    VAR_FUNC_USER(BorderColor, borderColor, QColor, update(), , )
+    VAR_FUNC_USER(BorderSize, borderSize, int, update(), , )
 
-    VAR_FUNC(NormalColor, normalColor, QColor, , )
-    VAR_FUNC(MouseOverColor, mouseOverColor, QColor, , )
-    VAR_FUNC(MouseDownColor, mouseDownColor, QColor, , )
+    VAR_FUNC_USER(NormalColor, normalColor, QColor, update(), , )
+    VAR_FUNC_USER(MouseOverColor, mouseOverColor, QColor, update(), , )
+    VAR_FUNC_USER(MouseDownColor, mouseDownColor, QColor, update(), , )
 
 private:
     QColor borderColor = QColor(120, 120, 120);
