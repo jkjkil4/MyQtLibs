@@ -1,5 +1,4 @@
-#ifndef MATH_H
-#define MATH_H
+#pragma once
 
 #include <QVector>
 
@@ -27,5 +26,3 @@ namespace j {
         return (n == 1 ? vValues[0] : Lcm(vValues[n - 1], Lcm(vValues, n - 1)));
     }
 }
-
-#endif // MATH_H

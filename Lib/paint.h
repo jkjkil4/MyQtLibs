@@ -1,5 +1,4 @@
-#ifndef PAINT_H
-#define PAINT_H
+#pragma once
 
 #include <QPainter>
 #include "header.h"
@@ -63,5 +62,3 @@ namespace j {
         p->fillRect(x, y + h - size, w, size, c);  //底部
     }
 }
-
-#endif // PAINT_H

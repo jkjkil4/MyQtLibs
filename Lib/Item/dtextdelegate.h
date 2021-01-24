@@ -1,5 +1,4 @@
-#ifndef DTEXTDELEGATE_H
-#define DTEXTDELEGATE_H
+#pragma once
 
 #include <Lib/Item/chequereddelegate.h>
 #include <Lib/paint.h>
@@ -31,5 +30,3 @@ private:
     int margin = 3;
     int spacing = 2;
 };
-
-#endif // DTEXTDELEGATE_H

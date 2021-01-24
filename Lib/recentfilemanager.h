@@ -1,5 +1,4 @@
-#ifndef RECENTFILEMANAGER_H
-#define RECENTFILEMANAGER_H
+#pragma once
 
 #include <QFile>
 #include <QFileInfo>
@@ -84,5 +83,3 @@ public:
 private:
     QString filePath;
 };
-
-#endif // RECENTFILEMANAGER_H

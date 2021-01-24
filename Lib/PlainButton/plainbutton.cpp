@@ -1,5 +1,16 @@
 #include "plainbutton.h"
 
+PlainButton::PlainButton(QWidget *parent) : QAbstractButton(parent)
+{
+    j::LimitSize(this, 80, 24);
+}
+
+PlainButton::PlainButton(const QString &text, QWidget *parent) : QAbstractButton(parent)
+{
+    j::LimitSize(this, 80, 24);
+    setText(text);
+}
+
 void PlainButton::paintEvent(QPaintEvent *) {
     QPainter p(this);
     p.setFont(font());

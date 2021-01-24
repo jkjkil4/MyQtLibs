@@ -1,5 +1,4 @@
-#ifndef CHEQUEREDDELEGATE_H
-#define CHEQUEREDDELEGATE_H
+#pragma once
 
 #include <QItemDelegate>
 #include <QPainter>
@@ -23,5 +22,3 @@ private:
     QColor mouseOverColor = QColor(227, 227, 255);
     QColor selectedColor = QColor(210, 210, 250);
 };
-
-#endif // CHEQUEREDDELEGATE_H

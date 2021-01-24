@@ -1,5 +1,4 @@
-#ifndef DTEXTMODEL_H
-#define DTEXTMODEL_H
+#pragma once
 
 #include <QAbstractListModel>
 
@@ -39,5 +38,3 @@ public:
 private:
     QVector<Data*> vDatas;
 };
-
-#endif // DTEXTMODEL_H

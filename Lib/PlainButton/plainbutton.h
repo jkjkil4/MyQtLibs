@@ -1,5 +1,4 @@
-#ifndef PLAINBUTTON_H
-#define PLAINBUTTON_H
+#pragma once
 
 #include <QAbstractButton>
 
@@ -11,8 +10,8 @@ protected:
     void paintEvent(QPaintEvent *) override;
 
 public:
-    explicit PlainButton(QWidget *parent = nullptr) : QAbstractButton(parent) {}
-    explicit PlainButton(const QString& text, QWidget *parent = nullptr) : QAbstractButton(parent) { setText(text); }
+    explicit PlainButton(QWidget *parent = nullptr);
+    explicit PlainButton(const QString &text, QWidget *parent = nullptr);
 
     VAR_FUNC_USER(BorderColor, borderColor, QColor, update(), , )
     VAR_FUNC_USER(BorderSize, borderSize, int, update(), , )
@@ -29,5 +28,3 @@ private:
     QColor mouseOverColor = QColor(253, 253, 253);
     QColor mouseDownColor = QColor(239, 239, 239);
 };
-
-#endif // PLAINBUTTON_H

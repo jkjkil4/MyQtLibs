@@ -1,5 +1,4 @@
-#ifndef FONTFAMILY_H
-#define FONTFAMILY_H
+#pragma once
 
 #include <QString>
 #include <QFontDatabase>
@@ -16,5 +15,3 @@ public:
 
     QString family;
 };
-
-#endif // FONTFAMILY_H

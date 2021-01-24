@@ -1,5 +1,4 @@
-#ifndef HEADER_H
-#define HEADER_H
+#pragma once
 
 #include <QWidget>
 
@@ -48,5 +47,3 @@ namespace j {
         widget->setMaximumSize(size);
     }
 }
-
-#endif // HEADER_H
