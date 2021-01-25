@@ -7,8 +7,12 @@
 
 #include "Lib/header.h"
 
-class RecentFileManager
+class RecentFileManager : public QObject
 {
+    Q_OBJECT
+signals:
+    void appended(const QString &path);
+
 public:
     RecentFileManager() = default;
     explicit RecentFileManager(const QString &filePath) : filePath(filePath) {}
@@ -75,6 +79,7 @@ public:
         QTextStream(&file) << "\n" << path; //输出
         file.close();   //关闭文件
 
+        emit appended(path);
         SET_PTR(ok, true);
     }
 
