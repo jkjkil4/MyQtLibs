@@ -1,13 +1,14 @@
 #include "plainbutton.h"
+#include <QStyle>
+#include <QStyleOptionButton>
 
 PlainButton::PlainButton(QWidget *parent) : QAbstractButton(parent)
 {
     j::LimitSize(this, 80, 24);
 }
 
-PlainButton::PlainButton(const QString &text, QWidget *parent) : QAbstractButton(parent)
+PlainButton::PlainButton(const QString &text, QWidget *parent) : PlainButton(parent)
 {
-    j::LimitSize(this, 80, 24);
     setText(text);
 }
 
