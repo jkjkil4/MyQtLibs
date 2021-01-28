@@ -3,13 +3,9 @@
 
 DTextModel::DTextModel(QObject *parent) : QAbstractListModel(parent) {}
 
-DTextModel::~DTextModel() {
-    clear();
-}
-
 int DTextModel::rowCount(const QModelIndex &parent) const {
     if (parent.row() == -1)
-        return vDatas.size();
+        return lDatas.size();
     return 0;
 }
 
@@ -17,12 +13,12 @@ QVariant DTextModel::data(const QModelIndex &index, int role) const {
     if(role == Qt::TextAlignmentRole) {
         return int(Qt::AlignLeft | Qt::AlignVCenter);
     } else if(role >= Qt::UserRole) {
-        Data *pData = vDatas.at(index.row());
+        const Data &data = lDatas[index.row()];
         switch(role) {
         case Qt::UserRole:
-            return pData->text1;
+            return data.text1;
         case Qt::UserRole + 1:
-            return pData->text2;
+            return data.text2;
         }
     }
     return QVariant();
@@ -30,13 +26,13 @@ QVariant DTextModel::data(const QModelIndex &index, int role) const {
 
 bool DTextModel::setData(const QModelIndex &index, const QVariant &value, int role) {
     if(role >= Qt::UserRole) {
-        Data *pData = vDatas.at(index.row());
+        Data &data = lDatas[index.row()];
         switch(role) {
         case Qt::UserRole:
-            pData->text1 = value.toString();
+            data.text1 = value.toString();
             break;
         case Qt::UserRole + 1:
-            pData->text2 = value.toString();
+            data.text2 = value.toString();
             break;
         default:
             return false;
@@ -47,48 +43,57 @@ bool DTextModel::setData(const QModelIndex &index, const QVariant &value, int ro
 }
 
 void DTextModel::clear() {
-    for(Data *data : vDatas)
-        delete data;
-    vDatas.clear();
+    beginRemoveRows(QModelIndex(), 0, lDatas.size() - 1);
+    lDatas.clear();
+    endRemoveRows();
 }
 
-int DTextModel::count() {
-    return vDatas.size();
+int DTextModel::count() const {
+    return lDatas.size();
 }
 
-int DTextModel::indexOf(Ind ind) {
-    return vDatas.indexOf(ind);
+int DTextModel::indexOf(const Data &ind) const {
+    return lDatas.indexOf(ind);
 }
 
-void DTextModel::insert(int pos, const QString& text1, const QString& text2) {
-    vDatas.insert(pos, new Data{ text1, text2 });
+void DTextModel::insert(int pos, const Data &data) {
+    beginInsertRows(QModelIndex(), pos, pos);
+    lDatas.insert(pos, data);
+    endInsertRows();
 }
-void DTextModel::insert(Ind pos, const QString& text1, const QString& text2) {
-    insert(indexOf(pos), text1, text2);
+void DTextModel::insert(const Data &pos, const Data &data) {
+    insert(indexOf(pos), data);
 }
 
-void DTextModel::append(const QString &text1, const QString &text2) {
-    vDatas.append(new Data{ text1, text2 });
+void DTextModel::append(const Data &data) {
+    beginInsertRows(QModelIndex(), lDatas.size(), lDatas.size());
+    lDatas.append(data);
+    endInsertRows();
 }
 
 void DTextModel::remove(int pos) {
-    if(pos < 0 || pos >= vDatas.size())
+    if(pos < 0 || pos >= lDatas.size())
         return;
-    delete vDatas.takeAt(pos);
+    beginRemoveRows(QModelIndex(), pos, pos);
+    lDatas.removeAt(pos);
+    endRemoveRows();
 }
 
-void DTextModel::remove(Ind pos) {
+void DTextModel::remove(const Data &pos) {
     remove(indexOf(pos));
 }
 
-DTextModel::Ind DTextModel::take(int pos) {
-    return vDatas.takeAt(pos);
+DTextModel::Data DTextModel::take(int pos) {
+    beginRemoveRows(QModelIndex(), pos, pos);
+    Data data = lDatas.takeAt(pos);
+    endRemoveRows();
+    return data;
 }
 
-DTextModel::Ind DTextModel::take(Ind pos) {
+DTextModel::Data DTextModel::take(const Data &pos) {
     return take(indexOf(pos));
 }
 
-DTextModel::Ind DTextModel::at(int index) {
-    return vDatas.value(index, nullptr);
+const DTextModel::Data &DTextModel::at(int index) {
+    return lDatas[index];
 }
