@@ -82,6 +82,15 @@ public:
         emit appended(path);
         SET_PTR(ok, true);
     }
+    void clear(bool *ok = nullptr) {
+        QFile file(filePath);   //文件
+        if(!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+            SET_PTR(ok, false);
+            return;
+        }
+        file.close();
+        SET_PTR(ok, true);
+    }
 
     VAR_FUNC(FilePath, filePath, QString, , )
 
