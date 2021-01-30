@@ -11,21 +11,22 @@ class RecentFileManager : public QObject
 {
     Q_OBJECT
 signals:
-    void appended(const QString &path);
+    void changed();
 
 public:
     RecentFileManager() = default;
     explicit RecentFileManager(const QString &filePath) : filePath(filePath) {}
 
     template<typename CheckFn = bool(*)(const QString&)>
-    QStringList loadAll(int limitCount = -1, bool *ok = nullptr, CheckFn fn = nullptr) {
+    void load(int limitCount = -1, bool *ok = nullptr, CheckFn fn = nullptr) {
+        fileList = QStringList();
+
         QFile file(filePath);   //文件
         if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) { //以只读方式打开文件，如果不能打开，则return
             if(ok) *ok = false;
-            return QStringList();
+            return;
         }
 
-        QStringList lRecentFiles;   //最近文件列表
         QTextStream in(&file);  //输入流
         while(!in.atEnd()) {    //循环直到全部读取
             //得到并处理路径
@@ -40,60 +41,63 @@ public:
             if(fn && !(*fn)(path)) continue;
 
             //如果 路径重复 ， 则删除原先存在的
-            if(lRecentFiles.contains(path))
-                lRecentFiles.removeOne(path);
+            if(fileList.contains(path))
+                fileList.removeOne(path);
 
-            //将路径添加到 lRecentFiles 中
-            lRecentFiles.insert(0, path);
+            //将路径添加到 list 中
+            fileList.append(path);
         }
         file.close();   //关闭文件
 
         //检测路径数量是否超过限制(limitCount不等于-1的前提下)
-        if(limitCount != -1 && lRecentFiles.size() > limitCount) {
-            QFile writeFile(filePath);  //文件
-            int ignoreCount = lRecentFiles.size() - limitCount; //要忽略的数量
-
-            if(writeFile.open(QIODevice::WriteOnly | QIODevice::Text)) { //以只写方式打开文件，若不能，则跳转至End
-                QTextStream out(&writeFile); //输出流
-                //从第limitCount个向前遍历
-                for(auto iter = lRecentFiles.rbegin() + ignoreCount; iter < lRecentFiles.rend(); ++iter) {
-                    QString path = *iter;
-                    out << "\n" << path;
-                }
-                writeFile.close();  //关闭文件
-
-                for(int i = 0; i < ignoreCount; i++)    //移除过多的路径
-                    lRecentFiles.removeLast();
-            }
+        if(limitCount != -1 && fileList.size() > limitCount) {
+            int ignoreCount = fileList.size() - limitCount; //要忽略的数量
+            for(int i = 0; i < ignoreCount; i++)    //移除过多的路径
+                fileList.removeLast();
         }
 
         if(ok) *ok = true;
-        return lRecentFiles;
+        emit changed();
     }
-    void append(const QString &path, bool *ok = nullptr) {
-        QFile file(filePath);   //文件
-        if(!file.open(QIODevice::Append | QIODevice::Text)) {   //以追加的方式打开文件，如果不能打开，则return
-            SET_PTR(ok, false);
-            return;
-        }
-        QTextStream(&file) << "\n" << path; //输出
-        file.close();   //关闭文件
-
-        emit appended(path);
-        SET_PTR(ok, true);
-    }
-    void clear(bool *ok = nullptr) {
-        QFile file(filePath);   //文件
+    void save(bool *ok = nullptr) {
+        QFile file(filePath);
         if(!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
             SET_PTR(ok, false);
             return;
         }
+
+        QTextStream out(&file);
+        for(QString &file : fileList)
+            out << file << "\n";
+
         file.close();
-        SET_PTR(ok, true);
     }
+    void append(const QString &path) {
+        QString cPath = QFileInfo(path).canonicalFilePath();
+        int index = fileList.indexOf(cPath);
+        if(index == -1) {
+            fileList.insert(0, cPath);
+            emit changed();
+        } else if(index != 0) {
+            fileList.removeAt(index);
+            fileList.insert(0, cPath);
+            emit changed();
+        }
+    }
+    void clear() {
+        fileList.clear();
+        emit changed();
+    }
+    void remove(int index) {
+        fileList.removeAt(index);
+        emit changed();
+    }
+
+    const QStringList& list() { return fileList; }
 
     VAR_FUNC(FilePath, filePath, QString, , )
 
 private:
     QString filePath;
+    QStringList fileList;
 };

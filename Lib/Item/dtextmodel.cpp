@@ -23,6 +23,11 @@ QVariant DTextModel::data(const QModelIndex &index, int role) const {
     }
     return QVariant();
 }
+QString DTextModel::data(int row) {
+    if(row < 0 || row >= lDatas.size())
+        return "";
+    return lDatas[row].text2;
+}
 
 bool DTextModel::setData(const QModelIndex &index, const QVariant &value, int role) {
     if(role >= Qt::UserRole) {
