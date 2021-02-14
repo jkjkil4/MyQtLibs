@@ -10,20 +10,20 @@ void DTextDelegate::paint(QPainter *p, const QStyleOptionViewItem &option, const
     QString text1 = index.data(Qt::UserRole).toString();
     QString text2 = index.data(Qt::UserRole + 1).toString();
     QRect rect = option.rect;
-    rect.setX(rect.x() + margin);
-    rect.setY(rect.y() + margin);
-    rect.setWidth(rect.width() - margin);
-    rect.setHeight(rect.height() - margin);
+    rect.setX(rect.x() + mMargin);
+    rect.setY(rect.y() + mMargin);
+    rect.setWidth(rect.width() - mMargin);
+    rect.setHeight(rect.height() - mMargin);
 
     QRect tmpRect;
 
-    j::SetPointSize(p, text1PointSize);
-    p->setPen(text1Color);
+    j::SetPointSize(p, mText1PointSize);
+    p->setPen(mText1Color);
     p->drawText(rect, Qt::AlignLeft | Qt::AlignTop, text1, &tmpRect);
-    rect.setY(rect.y() + tmpRect.height() + spacing);
+    rect.setY(rect.y() + tmpRect.height() + mSpacing);
 
-    j::SetPointSize(p, text2PointSize);
-    p->setPen(text2Color);
+    j::SetPointSize(p, mText2PointSize);
+    p->setPen(mText2Color);
     p->drawText(rect, Qt::AlignLeft | Qt::AlignTop, text2);
 
     p->restore();
@@ -31,5 +31,5 @@ void DTextDelegate::paint(QPainter *p, const QStyleOptionViewItem &option, const
 
 QSize DTextDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const {
     QSize size = ChequeredDelegate::sizeHint(option, index);
-    return QSize(size.width(),  height);
+    return QSize(size.width(),  mHeight);
 }

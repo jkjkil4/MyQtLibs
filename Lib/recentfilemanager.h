@@ -15,13 +15,13 @@ signals:
 
 public:
     RecentFileManager() = default;
-    explicit RecentFileManager(const QString &filePath) : filePath(filePath) {}
+    explicit RecentFileManager(const QString &filePath) : mFilePath(filePath) {}
 
     template<typename CheckFn = bool(*)(const QString&)>
     void load(int limitCount = -1, bool *ok = nullptr, CheckFn fn = nullptr) {
-        fileList = QStringList();
+        mFileList = QStringList();
 
-        QFile file(filePath);   //文件
+        QFile file(mFilePath);   //文件
         if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) { //以只读方式打开文件，如果不能打开，则return
             if(ok) *ok = false;
             return;
@@ -41,63 +41,63 @@ public:
             if(fn && !(*fn)(path)) continue;
 
             //如果 路径重复 ， 则删除原先存在的
-            if(fileList.contains(path))
-                fileList.removeOne(path);
+            if(mFileList.contains(path))
+                mFileList.removeOne(path);
 
             //将路径添加到 list 中
-            fileList.append(path);
+            mFileList.append(path);
         }
         file.close();   //关闭文件
 
         //检测路径数量是否超过限制(limitCount不等于-1的前提下)
-        if(limitCount != -1 && fileList.size() > limitCount) {
-            int ignoreCount = fileList.size() - limitCount; //要忽略的数量
+        if(limitCount != -1 && mFileList.size() > limitCount) {
+            int ignoreCount = mFileList.size() - limitCount; //要忽略的数量
             for(int i = 0; i < ignoreCount; i++)    //移除过多的路径
-                fileList.removeLast();
+                mFileList.removeLast();
         }
 
         if(ok) *ok = true;
         emit changed();
     }
     void save(bool *ok = nullptr) {
-        QFile file(filePath);
+        QFile file(mFilePath);
         if(!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
             SET_PTR(ok, false);
             return;
         }
 
         QTextStream out(&file);
-        for(QString &file : fileList)
+        for(QString &file : mFileList)
             out << file << "\n";
 
         file.close();
     }
     void append(const QString &path) {
         QString cPath = QFileInfo(path).canonicalFilePath();
-        int index = fileList.indexOf(cPath);
+        int index = mFileList.indexOf(cPath);
         if(index == -1) {
-            fileList.insert(0, cPath);
+            mFileList.insert(0, cPath);
             emit changed();
         } else if(index != 0) {
-            fileList.removeAt(index);
-            fileList.insert(0, cPath);
+            mFileList.removeAt(index);
+            mFileList.insert(0, cPath);
             emit changed();
         }
     }
     void clear() {
-        fileList.clear();
+        mFileList.clear();
         emit changed();
     }
     void remove(int index) {
-        fileList.removeAt(index);
+        mFileList.removeAt(index);
         emit changed();
     }
 
-    const QStringList& list() { return fileList; }
+    const QStringList& list() { return mFileList; }
 
-    VAR_FUNC(FilePath, filePath, QString, , )
+    VAR_FUNC(FilePath, mFilePath, QString, , )
 
 private:
-    QString filePath;
-    QStringList fileList;
+    QString mFilePath;
+    QStringList mFileList;
 };

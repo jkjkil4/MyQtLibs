@@ -17,10 +17,10 @@ void PlainButton::paintEvent(QPaintEvent *) {
     p.setFont(font());
 
     bool contains = QRect(0, 0, width(), height()).contains(mapFromGlobal(cursor().pos()));
-    QColor& color = (isDown() ? mouseDownColor : (contains ? mouseOverColor : normalColor));
-    QRect centralRect(borderSize, borderSize, width() - 2 * borderSize, height() - 2 * borderSize);
+    QColor& color = (isDown() ? mMouseDownColor : (contains ? mMouseOverColor : mNormalColor));
+    QRect centralRect(mBorderSize, mBorderSize, width() - 2 * mBorderSize, height() - 2 * mBorderSize);
 
     p.fillRect(centralRect, color);
     p.drawText(centralRect, Qt::AlignCenter | Qt::AlignVCenter, text());
-    j::DrawRecFrame(&p, 0, 0, width(), height(), borderSize, borderColor);
+    j::DrawRecFrame(&p, 0, 0, width(), height(), mBorderSize, mBorderColor);
 }

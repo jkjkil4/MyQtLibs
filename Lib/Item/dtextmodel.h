@@ -38,5 +38,5 @@ public:
     const Data &at(int index);
 
 private:
-    QList<Data> lDatas;
+    QList<Data> mDatas;
 };

@@ -9,9 +9,9 @@ public:
     void load(const QString &path) {
         int lcdFontId = QFontDatabase::addApplicationFont(path);
         if(lcdFontId != -1) {
-            family = QFontDatabase::applicationFontFamilies(lcdFontId)[0];
-        } else family = QFont().defaultFamily();
+            mFamily = QFontDatabase::applicationFontFamilies(lcdFontId)[0];
+        } else mFamily = QFont().defaultFamily();
     }
 
-    QString family;
+    QString mFamily;
 };
