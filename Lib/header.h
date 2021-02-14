@@ -6,12 +6,17 @@
 #define SET_PTR(ptr, v) if(ptr) *ptr = v
 #define APP_DIR QCoreApplication::applicationDirPath()
 
-#define VAR_GET_FUNC(Func, var, Type) Type get##Func() const { return var; }
-#define VAR_SET_FUNC(Func, var, Type, Const, Quote) void set##Func(Const Type Quote __##var##__) { var = __##var##__; }
-#define VAR_FUNC(Func, var, Type, Const, Quote) VAR_GET_FUNC(Func, var, Type) VAR_SET_FUNC(Func, var, Type, Const, Quote)
+#define VAR_GET_FUNC(Getter, var, Type) \
+    Type Getter() const { return var; }
+#define VAR_SET_FUNC(Setter, var, Type, Const, Quote) \
+    void Setter(Const Type Quote __##var##__) { var = __##var##__; }
+#define VAR_FUNC(Getter, Setter, var, Type, Const, Quote) \
+    VAR_GET_FUNC(Getter, var, Type) VAR_SET_FUNC(Setter, var, Type, Const, Quote)
 
-#define VAR_SET_FUNC_USER(Func, var, Type, User, Const, Quote) void set##Func(Const Type Quote __##var##__) { var = __##var##__; User; }
-#define VAR_FUNC_USER(Func, var, Type, User, Const, Quote) VAR_GET_FUNC(Func, var, Type) VAR_SET_FUNC_USER(Func, var, Type, User, Const, Quote)
+#define VAR_SET_FUNC_USER(Setter, var, Type, User, Const, Quote) \
+    void Setter(Const Type Quote __##var##__) { var = __##var##__; User; }
+#define VAR_FUNC_USER(Getter, Setter, var, Type, User, Const, Quote) \
+    VAR_GET_FUNC(Getter, var, Type) VAR_SET_FUNC_USER(Setter, var, Type, User, Const, Quote)
 
 namespace j {
     template<typename T>

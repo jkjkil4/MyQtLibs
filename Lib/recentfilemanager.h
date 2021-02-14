@@ -95,7 +95,7 @@ public:
 
     const QStringList& list() { return mFileList; }
 
-    VAR_FUNC(FilePath, mFilePath, QString, , )
+    VAR_FUNC(filePath, setFilePath, mFilePath, QString, , )
 
 private:
     QString mFilePath;

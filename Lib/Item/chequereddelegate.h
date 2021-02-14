@@ -13,8 +13,8 @@ public:
     virtual void paint(QPainter *p, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
 
     void setBackgroundColor(QColor col1, QColor col2) { mBackgroundColor1 = col1; mBackgroundColor2 = col2; }
-    VAR_FUNC(BackgroundColor1, mBackgroundColor1, QColor, , )
-    VAR_FUNC(BackgroundColor2, mBackgroundColor2, QColor, , )
+    VAR_FUNC(backgroundColor1, setBackgroundColor1, mBackgroundColor1, QColor, , )
+    VAR_FUNC(backgroundColor2, setBackgroundColor2, mBackgroundColor2, QColor, , )
 
 private:
     QColor mBackgroundColor1 = QColor(245, 245, 245);

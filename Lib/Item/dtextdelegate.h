@@ -11,13 +11,13 @@ public:
     void paint(QPainter *p, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
-    VAR_FUNC(Text1PointSize, mText1PointSize, int, , )
-    VAR_FUNC(Text2PointSize, mText2PointSize, int, , )
-    VAR_FUNC(Text1Color, mText1Color, QColor, , )
-    VAR_FUNC(Text2Color, mText2Color, QColor, , )
-    VAR_FUNC(Height, mHeight, int, , )
-    VAR_FUNC(Margin, mMargin, int, , )
-    VAR_FUNC(Spacing, mSpacing, int, , )
+    VAR_FUNC(text1PointSize, setText1PointSize, mText1PointSize, int, , )
+    VAR_FUNC(text2PointSize, setText2PointSize, mText2PointSize, int, , )
+    VAR_FUNC(text1Color, setText1Color, mText1Color, QColor, , )
+    VAR_FUNC(text2Color, setText2Color, mText2Color, QColor, , )
+    VAR_FUNC(height, setHeight, mHeight, int, , )
+    VAR_FUNC(margin, setMargin, mMargin, int, , )
+    VAR_FUNC(spacing, setSpacing, mSpacing, int, , )
 
 private:
     int mText1PointSize = 11;
