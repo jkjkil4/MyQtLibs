@@ -67,7 +67,7 @@ public:
         }
 
         QTextStream out(&file);
-        for(QString &file : mFileList)
+        for(const QString &file : mFileList)
             out << file << "\n";
 
         file.close();
