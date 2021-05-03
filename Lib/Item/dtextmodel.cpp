@@ -48,9 +48,11 @@ bool DTextModel::setData(const QModelIndex &index, const QVariant &value, int ro
 }
 
 void DTextModel::clear() {
-    beginRemoveRows(QModelIndex(), 0, mDatas.size() - 1);
-    mDatas.clear();
-    endRemoveRows();
+    if(!mDatas.isEmpty()) {
+        beginRemoveRows(QModelIndex(), 0, mDatas.size() - 1);
+        mDatas.clear();
+        endRemoveRows();
+    }
 }
 
 int DTextModel::count() const {
